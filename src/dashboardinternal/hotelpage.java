@@ -6,13 +6,16 @@
 package dashboardinternal;
 
 import config.dbconnector;
+import crudInfo.clientInfo;
 import crudInfo.hotelInfo;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
 /**
@@ -37,7 +40,9 @@ public class hotelpage extends javax.swing.JInternalFrame {
     public void displaydata(){
              try{
                  dbconnector dbc = new dbconnector();
-                 ResultSet rs = dbc.getdata("SELECT * FROM tbl_hotel");
+                 ResultSet rs = dbc.getdata("SELECT  h_id, tbl_client.cl_id, tbl_user.us_id, h_hotelname, h_type, h_desc, h_rent "
+                         + "FROM tbl_hotel LEFT JOIN tbl_user ON tbl_hotel.us_id = tbl_user.us_id "
+                         + "LEFT JOIN tbl_client ON tbl_hotel.cl_id = tbl_client.cl_id");
                  hoteltable.setModel(DbUtils.resultSetToTableModel(rs));
                  rs.close();
              }catch(SQLException e){
@@ -225,7 +230,25 @@ public class hotelpage extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_addMouseExited
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-        
+        int rowindex = hoteltable.getSelectedRow();
+       if(rowindex<0){
+           JOptionPane.showMessageDialog(null, "Please Select an Item!");
+       }else{
+            TableModel model = hoteltable.getModel();
+            hotelInfo uri = new hotelInfo();
+                uri.hotelid.setText(""+model.getValueAt(rowindex, 0));
+                uri.clientid.setText(""+model.getValueAt(rowindex, 1));
+                uri.userid.setText(""+model.getValueAt(rowindex, 2));
+                uri.hotelname.setText(""+model.getValueAt(rowindex, 3));
+                uri.type.setSelectedItem(""+model.getValueAt(rowindex, 4).toString());
+                uri.desc.setText(""+model.getValueAt(rowindex, 5));
+                uri.rent.setText(""+model.getValueAt(rowindex, 6));
+                uri.setVisible(true);
+                uri.action = "Edit";
+                uri.caballero.setText("Update");
+                JFrame mainFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+                mainFrame.dispose();
+       }
     }//GEN-LAST:event_editMouseClicked
 
     private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
@@ -261,7 +284,21 @@ public class hotelpage extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_findMouseExited
 
     private void deleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseClicked
-        // TODO add your handling code here:
+        int rowindex = hoteltable.getSelectedRow();
+        if(rowindex < 0){
+            JOptionPane.showMessageDialog(null, "Please select data first from the table.");
+        }else{
+            TableModel model = hoteltable.getModel();
+            Object value = model.getValueAt(rowindex, 0);
+            String id = value.toString();
+            int a = JOptionPane.showConfirmDialog(null, "Are you sure to Delete ID: " +id);
+                if(a == JOptionPane.YES_OPTION){
+                    dbconnector dbc = new dbconnector(); 
+                    int hot_id = Integer.parseInt(id);
+                    dbc.deletedata(hot_id, "tbl_hotel", "h_id");
+                    displaydata();
+                }
+        }
     }//GEN-LAST:event_deleteMouseClicked
 
     private void deleteMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteMouseEntered

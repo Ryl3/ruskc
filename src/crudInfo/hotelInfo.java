@@ -5,7 +5,11 @@
  */
 package crudInfo;
 
+import config.dbconnector;
+import dashboardinternal.userpage;
+import home.dashboard;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +23,24 @@ public class hotelInfo extends javax.swing.JFrame {
     public hotelInfo() {
         initComponents();
     }
-
+    int validateregister(){
+            int result;
+            if(hotelname.getText().isEmpty() || type.getSelectedItem().equals(null) || desc.getText().isEmpty() || rent.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Required Inputs!");
+                result = 0;
+            }else{
+                result = 1;
+            }
+                return result;
+        }
+    
+    public void close(){
+        this.dispose();
+        dashboard dash = new dashboard();
+        dash.setVisible(true);
+        userpage cp = new userpage();
+        dash.dashboardpane.add(cp).setVisible(true);
+   }
     
         Color o  = new Color(153,153,255);
         Color ten = new Color(51,51,255);
@@ -32,7 +53,7 @@ public class hotelInfo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        rent = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -42,9 +63,9 @@ public class hotelInfo extends javax.swing.JFrame {
         clientid = new javax.swing.JTextField();
         userid = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        add = new javax.swing.JPanel();
+        Add = new javax.swing.JPanel();
         caballero = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        type = new javax.swing.JComboBox<>();
         desc = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         hotelname = new javax.swing.JTextField();
@@ -60,9 +81,9 @@ public class hotelInfo extends javax.swing.JFrame {
         jLabel2.setText("Hotel Information");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jTextField1.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, 270, 30));
+        rent.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        rent.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel1.add(rent, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 300, 270, 30));
 
         jLabel1.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         jLabel1.setText("Type");
@@ -103,32 +124,32 @@ public class hotelInfo extends javax.swing.JFrame {
         jLabel9.setText("Client ID");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, 30));
 
-        add.setBackground(new java.awt.Color(153, 153, 255));
-        add.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        add.addMouseListener(new java.awt.event.MouseAdapter() {
+        Add.setBackground(new java.awt.Color(153, 153, 255));
+        Add.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        Add.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addMouseClicked(evt);
+                AddMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                addMouseEntered(evt);
+                AddMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                addMouseExited(evt);
+                AddMouseExited(evt);
             }
         });
-        add.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        Add.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         caballero.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         caballero.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         caballero.setText("Caballero");
-        add.add(caballero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 160, 30));
+        Add.add(caballero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 160, 30));
 
-        jPanel1.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 160, 50));
+        jPanel1.add(Add, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 280, 160, 50));
 
-        jComboBox2.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Apartment", "Condo", "Commercial", "Room" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 270, 30));
+        type.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
+        type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Apartment", "Condo", "Commercial", "Room" }));
+        type.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jPanel1.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 270, 30));
 
         desc.setFont(new java.awt.Font("Verdana", 1, 15)); // NOI18N
         desc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -147,17 +168,44 @@ public class hotelInfo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+    private void AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseClicked
+        if(action.equals("Add")){
+            
+        int check = validateregister(); 
+        if(check == 1){
+            dbconnector dbc = new dbconnector();
+           int result = dbc.insertdata("INSERT INTO tbl_hotel(h_id, cl_id, us_id, h_hotelname, h_type, h_desc, h_rent ) "
+                   + "VALUES ('"+hotelid.getText()+"', '"+clientid.getText()+"', '"+userid.getText()+"'"
+                           + ", '"+hotelname.getText()+"', '"+type.getSelectedItem()+"','"+desc.getText()+"', '"+rent.getText()+"')");
+           if(result==1){
+                  JOptionPane.showMessageDialog(null, "Successfully Saved!");
+               close();
+            }else{
+                  JOptionPane.showMessageDialog(null, "Successfully Failed!");
+              }
+            }else{
+                  
+              }
+        
+       }else if(action.equals("Edit")){
+           dbconnector dbc = new dbconnector();
+            dbc.updatedata("UPDATE tbl_hotel SET , h_hotelname = '"+hotelname.getText()+"', h_type = '"  +type.getSelectedItem()+ "' ,h_desc =  '"+desc.getText()+"',"
+                                    + "h_rent = '"+rent.getText()+"'WHERE h_id = '"+hotelid.getText()+"', cl_id = '"+clientid.getText()+"',"
+                                            + " us_id = '"+userid.getText()+"',   ");
+               close();
+            }else{
+                  JOptionPane.showMessageDialog(null, "No Actions Performed!");
+                close();
+       }
+    }//GEN-LAST:event_AddMouseClicked
 
-    }//GEN-LAST:event_addMouseClicked
+    private void AddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseEntered
+        Add.setBackground(o);
+    }//GEN-LAST:event_AddMouseEntered
 
-    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
-        add.setBackground(o);
-    }//GEN-LAST:event_addMouseEntered
-
-    private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
-        add.setBackground(ten);
-    }//GEN-LAST:event_addMouseExited
+    private void AddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddMouseExited
+        Add.setBackground(ten);
+    }//GEN-LAST:event_AddMouseExited
 
     /**
      * @param args the command line arguments
@@ -196,13 +244,12 @@ public class hotelInfo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel add;
+    private javax.swing.JPanel Add;
     public javax.swing.JLabel caballero;
-    private javax.swing.JTextField clientid;
-    private javax.swing.JTextField desc;
-    private javax.swing.JTextField hotelid;
-    private javax.swing.JTextField hotelname;
-    private javax.swing.JComboBox<String> jComboBox2;
+    public javax.swing.JTextField clientid;
+    public javax.swing.JTextField desc;
+    public javax.swing.JTextField hotelid;
+    public javax.swing.JTextField hotelname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -212,7 +259,8 @@ public class hotelInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField userid;
+    public javax.swing.JTextField rent;
+    public javax.swing.JComboBox<String> type;
+    public javax.swing.JTextField userid;
     // End of variables declaration//GEN-END:variables
 }
