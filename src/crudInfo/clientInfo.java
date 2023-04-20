@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package crudInfo;
-
 
 import config.dbconnector;
 import dashboardinternal.clientpage;
@@ -12,45 +6,38 @@ import home.dashboard;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ellan
- */
 public class clientInfo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form clientInfo
-     */
     public clientInfo() {
         initComponents();
     }
-    
-    public void close(){
+
+    public void close() {
         this.dispose();
         dashboard dash = new dashboard();
         dash.setVisible(true);
         clientpage cp = new clientpage();
         dash.dashboardpane.add(cp).setVisible(true);
-   }
-    
-    int validateregister(){
-            int result;
-            if(fname.getText().isEmpty() || lname.getText().isEmpty() || mobile.getText().isEmpty() || 
-                    gender.getSelectedItem().equals(null) || status.getSelectedItem().equals(null) || 
-                    address.getText().isEmpty() ){
-                JOptionPane.showMessageDialog(null, "Required Inputs!");
-                result = 0;
-            }else{
-                result = 1;
-            }
-                return result;
-        }
+    }
 
-        Color o  = new Color(153,153,255);
-        Color ten = new Color(51,51,255);
-        
+    int validateregister() {
+        int result;
+        if (fname.getText().isEmpty() || lname.getText().isEmpty() || mobile.getText().isEmpty()
+                || gender.getSelectedItem().equals(null) || status.getSelectedItem().equals(null)
+                || address.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Required Inputs!");
+            result = 0;
+        } else {
+            result = 1;
+        }
+        return result;
+    }
+
+    Color o = new Color(153, 153, 255);
+    Color ten = new Color(51, 51, 255);
+
     public String action;
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -73,8 +60,13 @@ public class clientInfo extends javax.swing.JFrame {
         caballero = new javax.swing.JLabel();
         status = new javax.swing.JComboBox<>();
         gender = new javax.swing.JComboBox<>();
+        minimize = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        close = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(153, 153, 255));
@@ -166,42 +158,88 @@ public class clientInfo extends javax.swing.JFrame {
         gender.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
         jPanel1.add(gender, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 270, 30));
 
+        minimize.setBackground(new java.awt.Color(51, 51, 255));
+        minimize.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        minimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                minimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                minimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                minimizeMouseExited(evt);
+            }
+        });
+        minimize.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("—");
+        minimize.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 40, 20));
+
+        jPanel1.add(minimize, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 0, 40, 40));
+
+        close.setBackground(new java.awt.Color(51, 51, 255));
+        close.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3));
+        close.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                closeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                closeMouseExited(evt);
+            }
+        });
+        close.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("X");
+        close.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 40, -1));
+
+        jPanel1.add(close, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 0, 40, 40));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 360));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        if(action.equals("Add")){
-           
-           int check = validateregister(); 
-        if(check == 1){
-            
-            dbconnector dbc = new dbconnector();
-           int result = dbc.insertdata("INSERT INTO tbl_client(cl_fname, cl_lname,cl_mobile, cl_gender,cl_status, cl_address) "
-                   + "VALUES ('"+fname.getText()+"', '"+lname.getText()+"', '"+mobile.getText()+"', '"+gender.getSelectedItem()+"',"
-                           + " '"+status.getSelectedItem()+"', '"+address.getText()+"' )");
-           if(result==1){
+        if (action.equals("Add")) {
+
+            int check = validateregister();
+            if (check == 1) {
+
+                dbconnector dbc = new dbconnector();
+                int result = dbc.insertdata("INSERT INTO tbl_client(cl_fname, cl_lname,cl_mobile, cl_gender,cl_status, cl_address) "
+                        + "VALUES ('" + fname.getText() + "', '" + lname.getText() + "', '" + mobile.getText() + "', '" + gender.getSelectedItem() + "',"
+                        + " '" + status.getSelectedItem() + "', '" + address.getText() + "' )");
+                if (result == 1) {
                     JOptionPane.showMessageDialog(null, "Successfully Saved!");
-               close();
-           }else{
+                    close();
+                } else {
                     JOptionPane.showMessageDialog(null, "Successfully Failed!");
                 }
-            }else{
-                    JOptionPane.showMessageDialog(null, "Required Inputs!");
-                }
-           
-       }else if(action.equals("Edit")){
-           dbconnector dbc = new dbconnector();
-            dbc.updatedata("UPDATE tbl_client SET cl_fname = '"+fname.getText()+"', cl_lname =  '"+lname.getText()+"',"
-                    + " cl_mobile =  '"+mobile.getText()+"', cl_gender =  '"+gender.getSelectedItem()+"',"
-                            + " cl_status =  '"+status.getSelectedItem()+"', cl_address =  '"+address.getText()+"',    ");
-               close();
-            }else{
-                  JOptionPane.showMessageDialog(null, "No Actions Performed!");
-                close();
-       }
-    
+            } else {
+                JOptionPane.showMessageDialog(null, "Required Inputs!");
+            }
+
+        } else if (action.equals("Edit")) {
+            dbconnector dbc = new dbconnector();
+            dbc.updatedata("UPDATE tbl_client SET cl_fname = '" + fname.getText() + "', cl_lname =  '" + lname.getText() + "',"
+                    + " cl_mobile =  '" + mobile.getText() + "', cl_gender =  '" + gender.getSelectedItem() + "',"
+                    + " cl_status =  '" + status.getSelectedItem() + "', cl_address =  '" + address.getText() + "' "
+                    + "WHERE cl_id = '" + clientid.getText() + "' ");
+            close();
+        } else {
+            JOptionPane.showMessageDialog(null, "No Actions Performed!");
+            close();
+        }
+
 
     }//GEN-LAST:event_addMouseClicked
 
@@ -212,6 +250,32 @@ public class clientInfo extends javax.swing.JFrame {
     private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
         add.setBackground(ten);
     }//GEN-LAST:event_addMouseExited
+
+    private void minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseClicked
+        setState(ICONIFIED);
+    }//GEN-LAST:event_minimizeMouseClicked
+
+    private void minimizeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseEntered
+        minimize.setBackground(o);
+    }//GEN-LAST:event_minimizeMouseEntered
+
+    private void minimizeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_minimizeMouseExited
+        minimize.setBackground(ten);
+    }//GEN-LAST:event_minimizeMouseExited
+
+    private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
+        clientpage lg = new clientpage();
+        this.dispose();
+        lg.setVisible(true);
+    }//GEN-LAST:event_closeMouseClicked
+
+    private void closeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseEntered
+        close.setBackground(o);
+    }//GEN-LAST:event_closeMouseEntered
+
+    private void closeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseExited
+        close.setBackground(ten);
+    }//GEN-LAST:event_closeMouseExited
 
     /**
      * @param args the command line arguments
@@ -253,9 +317,12 @@ public class clientInfo extends javax.swing.JFrame {
     public javax.swing.JTextField address;
     public javax.swing.JLabel caballero;
     public javax.swing.JTextField clientid;
+    private javax.swing.JPanel close;
     public javax.swing.JTextField fname;
     public javax.swing.JComboBox<String> gender;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -265,6 +332,7 @@ public class clientInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JTextField lname;
+    private javax.swing.JPanel minimize;
     public javax.swing.JTextField mobile;
     public javax.swing.JComboBox<String> status;
     // End of variables declaration//GEN-END:variables

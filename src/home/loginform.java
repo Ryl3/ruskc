@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package home;
 
 import config.dbconnector;
@@ -14,15 +9,8 @@ import java.sql.ResultSet;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ellan
- */
 public class loginform extends javax.swing.JFrame {
 
-    /**
-     * Creates new form loginform
-     */
     public loginform() {
         initComponents();
     }
@@ -183,7 +171,7 @@ public class loginform extends javax.swing.JFrame {
         String user = lemail.getText();
         String pass = lpassword.getText();
         if (lemail.getText().isEmpty() || lpassword.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please Input!");
+            JOptionPane.showMessageDialog(null, "Required Inputs!");
         } else {
             try {
                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hoteltracker", "root", "");
@@ -191,7 +179,6 @@ public class loginform extends javax.swing.JFrame {
                 ResultSet rs = dbc.getdata("SELECT * FROM tbl_user WHERE us_email= '" + lemail.getText() + "'AND us_password='" + lpassword.getText() + "'");
                 if (rs.next()) {
                     JOptionPane.showMessageDialog(rootPane, "Successfully Login!!");
-
                     dashboard dash = new dashboard();
                     this.dispose();
                     dash.setVisible(true);
